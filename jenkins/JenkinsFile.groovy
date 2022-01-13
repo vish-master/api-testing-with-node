@@ -16,7 +16,8 @@ node {
             try {
                 sh 'set -x'
                 npm start &
-                sh 'sleep 1 & echo $! > .pidfile'
+                sh 'sleep 1'
+                echo sh '$! > .pidfile'
                 set +x
                 sh "npm test"
             } catch (Exception e) {
