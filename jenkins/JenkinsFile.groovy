@@ -14,13 +14,17 @@ node {
         }
         stage('Test App') {
             try {
-                sh "./jenkins/scripts/start.sh"
+                sh 'set - x'
+                sh 'kill $(cat.pidfile)'
+                sh 'set + x'
                 sh "npm test"
             } catch (Exception e) {
                 println e.getMessage()
                 throw e
             } finally {
-                sh "./jenkins/scripts/killapp.sh"
+                sh 'set - x'
+                sh 'kill $(cat.pidfile)'
+                sh 'set + x'
             }
         }
     }
