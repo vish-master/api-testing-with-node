@@ -34,7 +34,7 @@ node {
 }
 
 def buildApp(){
-    sh 'npm ci'
+    sh 'npm install'
 }
 
 def startApp() {
