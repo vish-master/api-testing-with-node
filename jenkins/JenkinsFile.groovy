@@ -39,7 +39,8 @@ def buildApp(){
 
 def startApp() {
     sh ' set -x'
-    sh ' kill $(cat .pidfile)'
+    sh 'npm start & sleep 1'
+    sh 'echo $! > .pidfile'
     sh ' set +x'
 }
 
