@@ -2,9 +2,15 @@ node {
     def app
 
     nodejs('NodeJs-15.0.0') {
-        stage("Build App") {
 
-            buildApp()
+        stage('Checkout scm') {
+            echo "Checking out scm..."
+            checkout(scm)
+            sh "ls -l ${env.WORKSPACE}/jenkins/"
+        }
+
+        stage("Build App") {
+            sh 'npm install'
         }
         stage('Test App') {
             try {
@@ -31,20 +37,4 @@ node {
     }
 }
 
-def buildApp(){
-    sh 'npm install'
-}
-
-def startApp() {
-    sh ' set -x'
-    sh 'npm start & sleep 1'
-    sh 'echo $! > .pidfile'
-    sh ' set +x'
-}
-
-def testApp() {
-    sh ' set - x'
-    sh 'npm test'
-    sh 'set + x'
-}
 
