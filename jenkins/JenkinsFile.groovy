@@ -1,20 +1,23 @@
 node {
     def app
 
-    stage("Build App") {
-        buildApp()
-    }
-    stage("Run App") {
-        startApp()
-    }
-    stage('Test App') {
-        try {
-            testApp()
-        }catch(Exception e){
-            println e.getMessage()
-            throw e
-        }finally{
-            killAppAfterTest()
+    nodejs('NodeJs-15.0.0') {
+        stage("Build App") {
+
+            buildApp()
+        }
+        stage("Run App") {
+            startApp()
+        }
+        stage('Test App') {
+            try {
+                testApp()
+            } catch (Exception e) {
+                println e.getMessage()
+                throw e
+            } finally {
+                killAppAfterTest()
+            }
         }
     }
 
