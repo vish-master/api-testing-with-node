@@ -15,10 +15,9 @@ node {
         stage('Test App') {
             try {
                 sh 'set -x'
-                sh 'npm start &'
-                sh 'sleep 1'
-                sh 'echo $! > .pidfile'
-                sh 'set +x'
+                npm start &
+                sh 'sleep 1 & echo $! > .pidfile'
+                set +x
                 sh "npm test"
             } catch (Exception e) {
                 println e.getMessage()
