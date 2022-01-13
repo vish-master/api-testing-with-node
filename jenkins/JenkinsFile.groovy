@@ -6,17 +6,15 @@ node {
 
             buildApp()
         }
-        stage("Run App") {
-            startApp()
-        }
         stage('Test App') {
             try {
-                testApp()
+                sh "./jenkins/scripts/start.sh"
+                sh "npm test"
             } catch (Exception e) {
                 println e.getMessage()
                 throw e
             } finally {
-                killAppAfterTest()
+                sh "./jenkins/scripts/killapp.sh"
             }
         }
     }
@@ -50,8 +48,3 @@ def testApp() {
     sh 'set + x'
 }
 
-def killAppAfterTest() {
-    set - x
-    kill $(cat.pidfile)
-    set + x
-}
