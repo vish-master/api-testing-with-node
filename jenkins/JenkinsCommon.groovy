@@ -3,7 +3,6 @@ String appVersion
 
 def runPipelineSteps(){
 
-    repoName = getRepoName()
     appVersion = getAppVersion()
 
     stage("Checkout SCM"){
@@ -40,10 +39,6 @@ String getAppVersion(){
     appVersion = "${packageJson.version}"
 
     return appVersion
-}
-
-String getRepoName(){
-    return scm.getUserRemoteConfigs()[0].getUrl.tokenize('/').last().split("\\.")[0]
 }
 
 
