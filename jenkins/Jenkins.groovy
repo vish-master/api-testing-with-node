@@ -5,7 +5,7 @@ pipeline {
 
     tools { nodejs "node" }
 
-    options{
+    options {
         ansiColor('xterm')
     }
 

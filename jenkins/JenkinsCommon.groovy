@@ -1,40 +1,40 @@
 String repoName
 String appVersion
 
-def runPipelineSteps(){
+def runPipelineSteps() {
 
     appVersion = getAppVersion()
 
-    stage("Checkout SCM"){
+    stage("Checkout SCM") {
         checkout(scm)
     }
 
 
-    stage("build NodeJs"){
+    stage("build NodeJs") {
         buildNodesJsApp()
     }
 
-    stage("unit testing"){
+    stage("unit testing") {
         try {
             sh "./jenkins/scripts/start.sh"
             sh "npm test"
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e.getMessage()
-        }finally{
+        } finally {
             sh "./jenkins/scripts/kill.sh"
         }
     }
 
-    stage("build Docker image"){
+    stage("build Docker image") {
         dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
 
         docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
-           dockerImage.push()
+            dockerImage.push()
         }
     }
 }
 
-String getAppVersion(){
+String getAppVersion() {
     def packageJson = readJSON file: 'package.json'
     appVersion = "${packageJson.version}"
 
@@ -42,20 +42,20 @@ String getAppVersion(){
 }
 
 
-def buildNodesJsApp(){
+def buildNodesJsApp() {
     sh 'npm install'
     sh "chmod +x -R ${env.WORKSPACE}"
 }
 
-String infoString(String message){
+String infoString(String message) {
     return "\033[42m ${message} \033[0m"
 }
 
-String successString(String message){
+String successString(String message) {
     return "\033[42m ${message} \033[0m"
 }
 
-String failureString(String message){
+String failureString(String message) {
     return "\033[41m ${message} \033[0m"
 }
 
