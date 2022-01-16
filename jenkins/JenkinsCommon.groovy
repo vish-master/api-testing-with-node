@@ -28,7 +28,7 @@ def runPipelineSteps(){
     stage("build Docker image"){
         String dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
 
-        docker.withRegistry('', ${DOCKER_REGISTRY_CREDENTIAL}) {
+        docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
            dockerImage.push()
         }
     }

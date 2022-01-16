@@ -5,6 +5,10 @@ pipeline {
 
     tools { nodejs "node" }
 
+    options{
+        ansiColor('xterm')
+    }
+
     stages {
         stage("load pipeline properties") {
             steps {
