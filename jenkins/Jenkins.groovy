@@ -33,9 +33,7 @@ pipeline {
     post {
         always {
             echo commonPipeline.infoString("Done")
-            script {
-                commonPipeline.cleanProjectWs()
-            }
+            cleanWs()
         }
 
         success {

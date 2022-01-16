@@ -26,7 +26,7 @@ def runPipelineSteps(){
     }
 
     stage("build Docker image"){
-        String dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
+        dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
 
         docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
            dockerImage.push()
@@ -45,10 +45,6 @@ String getAppVersion(){
 def buildNodesJsApp(){
     sh 'npm install'
     sh "chmod +x -R ${env.WORKSPACE}"
-}
-
-def cleanProjectWs(){
-    cleanWs()
 }
 
 String successString(String message){
