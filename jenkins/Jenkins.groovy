@@ -13,7 +13,7 @@ pipeline {
         stage("load pipeline properties") {
             steps {
                 script {
-                    sh 'pwd'
+                    echo "Loading Jenkins files"
                     load "./jenkins/JenkinsConstants.groovy"
                     commonPipeline = load "./jenkins/JenkinsCommon.groovy"
                 }
@@ -23,6 +23,7 @@ pipeline {
         stage("run pipeline steps") {
             steps {
                 script {
+                    echo "\033[42m Running Pipeline Steps \033[0m"
                     commonPipeline.runPipelineSteps()
                 }
             }

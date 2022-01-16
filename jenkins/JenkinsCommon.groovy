@@ -11,10 +11,12 @@ def runPipelineSteps() {
 
 
     stage("build NodeJs") {
+        echo "\033[42m Building NodeJS App \033[0m"
         buildNodesJsApp()
     }
 
     stage("unit testing") {
+        echo "\033[42m Testing NodeJS App \033[0m"
         try {
             sh "./jenkins/scripts/start.sh"
             sh "npm test"
@@ -26,6 +28,7 @@ def runPipelineSteps() {
     }
 
     stage("build Docker image") {
+        echo echo "\033[42m Building Docker Image \033[0m"
         dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
 
         docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
