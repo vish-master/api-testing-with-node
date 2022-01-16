@@ -63,3 +63,5 @@ String successString(String message){
 String failureString(String message){
     return "\033[41m ${message} \033[0m"
 }
+
+return this
