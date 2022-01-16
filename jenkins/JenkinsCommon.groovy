@@ -47,6 +47,10 @@ def buildNodesJsApp(){
     sh "chmod +x -R ${env.WORKSPACE}"
 }
 
+String infoString(String message){
+    return "\033[42m ${message} \033[0m"
+}
+
 String successString(String message){
     return "\033[42m ${message} \033[0m"
 }
