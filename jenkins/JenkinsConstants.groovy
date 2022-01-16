@@ -1,0 +1,2 @@
+CI_DOCKER_REPO_URI = "19972909/node-js-ci"
+DOCKER_REGISTRY_CREDENTIAL="dockerhub_id"
