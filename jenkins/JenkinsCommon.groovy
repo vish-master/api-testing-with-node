@@ -28,7 +28,7 @@ def runPipelineSteps() {
     }
 
     stage("build Docker image") {
-        echo echo "\033[42m Building Docker Image \033[0m"
+        echo "\033[42m Building Docker Image \033[0m"
         dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
 
         docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
