@@ -9,6 +9,7 @@ pipeline {
         stage("load pipeline properties") {
             steps {
                 script {
+                    sh 'pwd'
                     load "./jenkins/JenkinsConstants.groovy"
                     commonPipeline = load "./jenkins/JenkinsCommon.groovy"
                 }
