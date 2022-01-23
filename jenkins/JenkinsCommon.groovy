@@ -27,17 +27,15 @@ def runPipelineSteps() {
         }
     }
 
-    stage("build Docker image") {
+    stage("build Docker image and push to Nexus ") {
         echo infoString("Building Docker Image")
         dockerImage = docker.build "${APP_NAME}:${appVersion}"
 
+        echo infoString("Pushing Docker Image To NEXUS")
         docker.withRegistry("https://${NEXUS_DOCKER_REGISTRY_URL}", NEXUS_CREDENTIAL){
             dockerImage.push()
         }
 
-//        docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
-//            dockerImage.push()
-//        }
     }
 
 }
