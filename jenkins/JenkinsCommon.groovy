@@ -29,11 +29,11 @@ def runPipelineSteps() {
 
     stage("build Docker image") {
         echo infoString("Building Docker Image")
-        dockerImage = docker.build "${CI_DOCKER_REPO_URI}:${appVersion}"
+        dockerImage = docker.build "${APP_NAME}:${appVersion}"
 
-        docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
-            dockerImage.push()
-        }
+//        docker.withRegistry('', "${DOCKER_REGISTRY_CREDENTIAL}") {
+//            dockerImage.push()
+//        }
     }
 }
 
