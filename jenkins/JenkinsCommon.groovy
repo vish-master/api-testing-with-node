@@ -33,7 +33,7 @@ def runPipelineSteps() {
 
         echo infoString("Pushing Docker Image To NEXUS")
         docker.withRegistry("https://${NEXUS_DOCKER_REGISTRY_URL}", NEXUS_CREDENTIAL){
-            dockerImage.push()
+            dockerImage.push('latest')
         }
 
     }
